@@ -4,6 +4,10 @@ All notable changes to Mob Buckets are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Versioning follows [Semantic Versioning](https://semver.org/).
 
+## [0.2.2] - 2026-10-18
+### Fixed
+- **Mob buckets did nothing on Minecraft 26.3.** Right-clicking a mob with a mob bucket caught nothing and showed no message, and the debug setting stayed silent too. Catching and the debug trace work again.
+
 ## [0.2.1] - 2026-10-17
 ### Added
 - **Debug setting.** `debug: true` in `config.yml` shows in the console, step by step, what happens when someone right-clicks a mob with a mob bucket, and which other plugins blocked it.

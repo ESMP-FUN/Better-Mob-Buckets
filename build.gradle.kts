@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.esmpfun"
-version = "0.2.1"
+version = "0.2.2"
 
 // ============================================================================
 // Three builds from one source tree, one per supported Minecraft line:

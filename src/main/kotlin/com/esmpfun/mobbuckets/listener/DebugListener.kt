@@ -5,7 +5,6 @@ import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
-import org.bukkit.event.player.PlayerInteractAtEntityEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 
 /** With debug on, shows in the console how a right-click on a mob with a mob bucket travels through every plugin. */
@@ -24,7 +23,7 @@ class DebugListener(private val plugin: MobBucketsPlugin) : Listener {
     fun monitor(event: PlayerInteractEntityEvent) = probe(event, EventPriority.MONITOR)
 
     private fun probe(event: PlayerInteractEntityEvent, stage: EventPriority) {
-        if (!plugin.settings.debug || event is PlayerInteractAtEntityEvent) return
+        if (!plugin.settings.debug || plugin.isRepeatClick(event)) return
         val held = event.player.inventory.getItem(event.hand)
         if (plugin.items.read(held) == null) {
             if (stage == EventPriority.LOWEST && held.type == Material.BUCKET) {

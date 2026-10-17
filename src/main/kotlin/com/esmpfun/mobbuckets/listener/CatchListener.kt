@@ -17,7 +17,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason
-import org.bukkit.event.player.PlayerInteractAtEntityEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.Merchant
@@ -28,13 +27,16 @@ class CatchListener(private val plugin: MobBucketsPlugin) : Listener {
     // HIGH so claim and protection plugins have already had their say on this click.
     @EventHandler(priority = EventPriority.HIGH)
     fun onInteract(event: PlayerInteractEntityEvent) {
-        if (event is PlayerInteractAtEntityEvent) return
         val player = event.player
         val hand = event.hand
         val data = plugin.items.read(player.inventory.getItem(hand)) ?: return
         // Item frames and armour stands take the bucket like any other item.
         val target = event.rightClicked as? LivingEntity ?: return
         if (target is ArmorStand) return
+        if (plugin.isRepeatClick(event)) {
+            event.isCancelled = true
+            return
+        }
 
         // Whatever happens next, the mob must not react to a bucket (no milking, trading, sitting).
         val refusedElsewhere = event.isCancelled

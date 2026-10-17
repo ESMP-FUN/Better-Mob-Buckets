@@ -15,14 +15,18 @@ import com.esmpfun.mobbuckets.messages.Messages
 import com.esmpfun.mobbuckets.recipe.LooseCraftListener
 import com.esmpfun.mobbuckets.recipe.RecipeRegistrar
 import com.esmpfun.mobbuckets.stats.CatchStats
+import org.bukkit.Bukkit
 import org.bukkit.configuration.InvalidConfigurationException
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
+import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.io.IOException
+import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
 
 class MobBucketsPlugin : JavaPlugin() {
 
@@ -80,6 +84,24 @@ class MobBucketsPlugin : JavaPlugin() {
             logger.severe("mobs.yml has a mistake in it (${e.message}). No mobs can be caught until it is fixed.")
         }
         return yaml
+    }
+
+    private class Click(val event: PlayerInteractEntityEvent, val entityId: Int, val hand: EquipmentSlot, val tick: Int, val repeat: Boolean)
+
+    private val lastClicks = ConcurrentHashMap<UUID, Click>()
+
+    /** True for the second report of one right-click on a mob: older servers send two, 26.3 one. */
+    fun isRepeatClick(event: PlayerInteractEntityEvent): Boolean {
+        val last = lastClicks[event.player.uniqueId]
+        if (last != null && last.event === event) return last.repeat
+        val tick = Bukkit.getCurrentTick()
+        val repeat = last != null && last.entityId == event.rightClicked.entityId && last.hand == event.hand && last.tick == tick
+        lastClicks[event.player.uniqueId] = Click(event, event.rightClicked.entityId, event.hand, tick, repeat)
+        return repeat
+    }
+
+    fun forget(player: Player) {
+        lastClicks.remove(player.uniqueId)
     }
 
     fun debug(message: String) {

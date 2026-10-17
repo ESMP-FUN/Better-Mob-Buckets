@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.PrepareItemCraftEvent
 import org.bukkit.event.player.PlayerBucketEntityEvent
 import org.bukkit.event.player.PlayerBucketFillEvent
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerQuitEvent
 
 /** Mob buckets are real buckets underneath; this stops them acting like one. */
 class GuardListener(private val plugin: MobBucketsPlugin) : Listener {
@@ -49,5 +50,10 @@ class GuardListener(private val plugin: MobBucketsPlugin) : Listener {
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
         plugin.recipes.showTo(event.player)
+    }
+
+    @EventHandler
+    fun onQuit(event: PlayerQuitEvent) {
+        plugin.forget(event.player)
     }
 }
