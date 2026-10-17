@@ -98,3 +98,12 @@ crafting:
     extra-items:
       slime_block: 3
       iron_chain: 2
+
+# -----------------------------------------------------------------------------
+#  Troubleshooting
+# -----------------------------------------------------------------------------
+# true: every time someone right-clicks a mob with a mob bucket, the console
+# shows what happened step by step, including other plugins that stopped the
+# click. Turn it on with /mobbuckets reload when catching doesn't work, and
+# off again when you're done, because it writes a lot.
+debug: false

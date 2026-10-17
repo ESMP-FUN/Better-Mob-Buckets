@@ -39,8 +39,16 @@ class CatchListener(private val plugin: MobBucketsPlugin) : Listener {
         // Whatever happens next, the mob must not react to a bucket (no milking, trading, sitting).
         val refusedElsewhere = event.isCancelled
         event.isCancelled = true
-        if (refusedElsewhere || !target.isValid) return
-        if (hand == EquipmentSlot.OFF_HAND && plugin.items.read(player.inventory.itemInMainHand) != null) return
+        if (refusedElsewhere) {
+            plugin.debug("Mob Buckets: another plugin already blocked this click, so nothing happens.")
+            return
+        }
+        if (!target.isValid) return
+        if (hand == EquipmentSlot.OFF_HAND && plugin.items.read(player.inventory.itemInMainHand) != null) {
+            plugin.debug("Mob Buckets: off hand ignored, the main hand holds a mob bucket too.")
+            return
+        }
+        plugin.debug("Mob Buckets: trying to catch (bucket for \"${data.mobId}\", filled: ${data.isFilled}).")
 
         val messages = plugin.messages
         val catalog = plugin.catalog
@@ -73,7 +81,11 @@ class CatchListener(private val plugin: MobBucketsPlugin) : Listener {
             player, target, player.inventory.getItem(hand).clone(), data.strengthened,
             if (data.strengthened) settings.strengthenedChance else settings.chance,
         )
-        if (!attempt.callEvent()) return
+        if (!attempt.callEvent()) {
+            plugin.debug("Mob Buckets: another plugin cancelled the catch (MobCatchEvent).")
+            return
+        }
+        plugin.debug("Mob Buckets: rolling the dice at ${attempt.chance}%.")
         if (ThreadLocalRandom.current().nextInt(100) >= attempt.chance) {
             plugin.useOne(player, hand, null)
             player.world.playSound(target.location, Sound.ENTITY_ITEM_BREAK, 1f, 1f)

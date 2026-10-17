@@ -8,6 +8,7 @@ import com.esmpfun.mobbuckets.integrations.MobBucketsPlaceholders
 import com.esmpfun.mobbuckets.item.BucketItems
 import com.esmpfun.mobbuckets.listener.BrewingListener
 import com.esmpfun.mobbuckets.listener.CatchListener
+import com.esmpfun.mobbuckets.listener.DebugListener
 import com.esmpfun.mobbuckets.listener.GuardListener
 import com.esmpfun.mobbuckets.listener.ReleaseListener
 import com.esmpfun.mobbuckets.messages.Messages
@@ -44,7 +45,7 @@ class MobBucketsPlugin : JavaPlugin() {
         reloadEverything()
 
         stats = CatchStats(this)
-        listOf(CatchListener(this), ReleaseListener(this), GuardListener(this), BrewingListener(this), LooseCraftListener(this), stats)
+        listOf(CatchListener(this), ReleaseListener(this), GuardListener(this), BrewingListener(this), LooseCraftListener(this), DebugListener(this), stats)
             .forEach { server.pluginManager.registerEvents(it, this) }
         if (server.pluginManager.isPluginEnabled("PlaceholderAPI")) MobBucketsPlaceholders(this).register()
         getCommand("mobbuckets")?.let {
@@ -79,6 +80,10 @@ class MobBucketsPlugin : JavaPlugin() {
             logger.severe("mobs.yml has a mistake in it (${e.message}). No mobs can be caught until it is fixed.")
         }
         return yaml
+    }
+
+    fun debug(message: String) {
+        if (settings.debug) logger.info("[debug] $message")
     }
 
     /** Takes one bucket from the player's hand and puts [replacement] in its place, or in their inventory. */

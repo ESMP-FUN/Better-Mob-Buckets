@@ -20,6 +20,7 @@ class Settings(
     val showInRecipeBook: Boolean,
     val normalRecipe: RecipeBase?,
     val dangerousRecipe: RecipeBase?,
+    val debug: Boolean,
 ) {
     companion object {
         private const val GRID_SIZE = 9
@@ -45,6 +46,7 @@ class Settings(
                 showInRecipeBook = config.getBoolean("crafting.show-in-recipe-book", true),
                 normalRecipe = recipe(config.getConfigurationSection("crafting.normal-mobs"), "crafting.normal-mobs", log),
                 dangerousRecipe = recipe(config.getConfigurationSection("crafting.dangerous-mobs"), "crafting.dangerous-mobs", log),
+                debug = config.getBoolean("debug", false),
             )
         }
 

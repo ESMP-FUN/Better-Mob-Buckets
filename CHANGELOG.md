@@ -4,6 +4,10 @@ All notable changes to Mob Buckets are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Versioning follows [Semantic Versioning](https://semver.org/).
 
+## [0.2.1] - 2026-10-17
+### Added
+- **Debug setting.** `debug: true` in `config.yml` shows in the console, step by step, what happens when someone right-clicks a mob with a mob bucket, and which other plugins blocked it.
+
 ## [0.2.0] - 2026-10-17
 ### Added
 - **Easy crafting.** Ingredients can go anywhere in the crafting grid and in stacks: a bucket, a stack of slime balls and a stack of the mob item is enough. Shift-click crafts as many as you can afford.
