@@ -63,14 +63,14 @@ item:
   empty-strengthened-name: "<white>{mob} Bucket"
   empty-lore:
     - "<gray>Right-click a <b>{mob}</b> to capture."
-    - "<gray>Success rate: <gold><b>{chance}%</b></gold> (missing power)"
+    - "<gray>Success rate: <#FFA500><b>{chance}%</b></#FFA500> <#D3D3D3>(missing power)</#D3D3D3>"
     - ""
-    - "<dark_gray>If catching fails, the bucket is lost."
+    - "<#808080>If catching fails, the bucket is lost."
   empty-strengthened-lore:
     - "<gray>Right-click a <b>{mob}</b> to capture."
-    - "<gray>Success rate: <green><b>{chance}%</b></green> (powered up)"
+    - "<gray>Success rate: <#00FF00><b>{chance}%</b></#00FF00> <#D3D3D3>(powered up)</#D3D3D3>"
     - ""
-    - "<dark_gray>If catching fails, the bucket is lost."
+    - "<#808080>If catching fails, the bucket is lost."
   filled-name: "<gold>Bucket of {mob}"
   filled-lore:
     - "<gray>Right-click a block to let it out."
