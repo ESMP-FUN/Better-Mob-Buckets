@@ -1,0 +1,46 @@
+name: MobBuckets
+version: ${version}
+main: com.esmpfun.mobbuckets.MobBucketsPlugin
+api-version: '${apiVersion}'
+prefix: MobBuckets
+authors: [ darkstarworks ]
+description: Craft a bucket for a mob, scoop it up, and let it out somewhere else.
+website: https://esmp.fun/plugins
+
+# GriefPrevention is optional: when it is installed, players can't catch
+# animals or villagers in someone else's claim, or let mobs out there.
+softdepend: [ GriefPrevention ]
+
+commands:
+  mobbuckets:
+    description: See a mob bucket recipe, give buckets, or reload the settings
+    usage: /<command> [recipe|give|reload]
+    aliases: [mobbucket]
+
+permissions:
+  mobbuckets.admin:
+    description: Everything admins need - give and reload
+    default: op
+    children:
+      mobbuckets.give: true
+      mobbuckets.reload: true
+
+  mobbuckets.use:
+    description: Catch mobs with a mob bucket and let them out again
+    default: true
+
+  mobbuckets.recipe:
+    description: See what a mob bucket is crafted from with /mobbuckets recipe
+    default: true
+
+  mobbuckets.give:
+    description: Give mob buckets with /mobbuckets give (also for shop and crate plugins)
+    default: op
+
+  mobbuckets.reload:
+    description: Reload the settings, mob list and messages
+    default: op
+
+  mobbuckets.bypass-claims:
+    description: Catch mobs and let them out inside anyone's land claim
+    default: false

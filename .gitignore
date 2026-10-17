@@ -1,0 +1,14 @@
+.idea/
+out/
+*.class
+*.log
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+.gradle
+.kotlin/
+build/
+**/build/
+gradle-app.setting
+.gradletasknamecache
+.env
+.env.*

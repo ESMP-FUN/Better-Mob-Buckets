@@ -1,0 +1,125 @@
+# =============================================================================
+#  Mob Buckets - which mobs can be caught
+# =============================================================================
+#  Each line is a mob, then the item that goes into its bucket's recipe.
+#  For example "zombie: rotten_flesh" means a Zombie Bucket is crafted from
+#  an empty bucket, the extra items from config.yml, and rotten flesh.
+#
+#  - Remove a line to stop that mob from being caught.
+#  - Give every mob a different item. Two mobs with the same item would have
+#    the same recipe, and only one of them could be crafted.
+#  - To let one bucket catch several mobs, list them together with commas,
+#    in quotes. The bucket is named after the first one.
+#  - An item that starts with # is a group of items, for example
+#    "#wool_carpets" means a carpet of any colour. Keep the quotes.
+#  - Mob and item names are the ones Minecraft uses in commands, like
+#    /summon zombie or /give @s rotten_flesh.
+#
+#  Mobs that don't exist in your Minecraft version are skipped.
+#  Fish, axolotls, tadpoles and sulfur cubes are left out on purpose: a
+#  normal water bucket already catches them.
+#
+#  After changing this file, run /mobbuckets reload.
+#  Use spaces, never the TAB key, for the indents in this file.
+# =============================================================================
+
+normal-mobs:
+  # Farm animals
+  cow: leather
+  mooshroom: red_mushroom
+  pig: porkchop
+  sheep: mutton
+  chicken: feather
+  rabbit: rabbit_hide
+  goat: wheat
+
+  # Animals you ride
+  horse: golden_carrot
+  donkey: hay_block
+  mule: apple
+  "llama, trader_llama": "#wool_carpets"
+  camel: cactus
+  camel_husk: dead_bush
+  skeleton_horse: bone_block
+  zombie_horse: fermented_spider_eye
+  nautilus: nautilus_shell
+  zombie_nautilus: prismarine_shard
+
+  # Pets
+  wolf: bone
+  cat: cod
+  ocelot: tropical_fish
+  parrot: wheat_seeds
+  fox: sweet_berries
+  polar_bear: salmon
+
+  # Other animals
+  turtle: seagrass
+  panda: bamboo
+  bee: honeycomb
+  frog: lily_pad
+  sniffer: torchflower_seeds
+  armadillo: armadillo_scute
+  strider: warped_fungus
+  allay: amethyst_shard
+  squid: ink_sac
+  glow_squid: glow_ink_sac
+  dolphin: kelp
+  bat: glow_berries
+
+  # Villages
+  villager: emerald
+  zombie_villager: golden_apple
+  wandering_trader: lead
+  iron_golem: poppy
+  snow_golem: carved_pumpkin
+  copper_golem: copper_block
+
+  # Monsters
+  zombie: rotten_flesh
+  husk: sand
+  drowned: copper_ingot
+  skeleton: arrow
+  stray: snowball
+  bogged: brown_mushroom
+  parched: tipped_arrow
+  spider: string
+  cave_spider: spider_eye
+  creeper: gunpowder
+  slime: slime_ball
+  magma_cube: magma_cream
+  enderman: ender_pearl
+  witch: glowstone_dust
+  phantom: phantom_membrane
+  zombified_piglin: gold_nugget
+  piglin: gold_ingot
+  pillager: crossbow
+  vindicator: iron_axe
+
+# These use the "dangerous-mobs" recipe from config.yml, which costs more.
+dangerous-mobs:
+  blaze: blaze_rod
+  breeze: breeze_rod
+  wither_skeleton: coal_block
+  shulker: shulker_shell
+  hoglin: crimson_fungus
+  zoglin: nether_wart_block
+  piglin_brute: golden_axe
+  ravager: saddle
+  evoker: totem_of_undying
+
+# These can never be caught, even if they are also listed above.
+cannot-be-caught:
+  - ghast
+  - happy_ghast
+  - guardian
+  - elder_guardian
+  - wither
+  - ender_dragon
+  - warden
+  - creaking
+  - vex
+  - silverfish
+  - endermite
+  - giant
+  - illusioner

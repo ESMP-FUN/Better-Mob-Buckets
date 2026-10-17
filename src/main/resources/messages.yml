@@ -1,0 +1,80 @@
+# =============================================================================
+# Mob Buckets - messages
+# =============================================================================
+# Every chat message and every bucket name and description comes from this
+# file. Change any text to reword it, recolour it or translate it.
+#
+# Colours and styles use MiniMessage, for example <red>, <gold>, <bold>.
+# The full list: https://docs.advntr.dev/minimessage/format.html
+#
+# Words in curly brackets, like {mob} or {chance}, are filled in by the
+# plugin. Keep them in your text, or the value they stand for won't show.
+# Mob and item names show in each player's own game language.
+#
+# Chat messages start with the "prefix" below. Bucket names and descriptions
+# (everything under "item:") do not. A changed bucket name only shows on
+# buckets made after the change.
+#
+# When an update adds new messages, they are added to this file for you on
+# the next start. Your own changes are kept.
+#
+# Use spaces, never the TAB key, for the indents in this file.
+# =============================================================================
+
+prefix: "<dark_aqua>[Mob Buckets]</dark_aqua> "
+
+catch:
+  success: "<green>You caught the {mob}! Right-click a block to let it out."
+  missed: "<red>The bucket broke and the {mob} got away. Craft another and try again."
+  wrong-mob: "<yellow>This bucket is made for a {mob}."
+  already-full: "<yellow>This bucket already holds a {mob}. Right-click a block to let it out."
+  cannot-be-caught: "<red>A {mob} can't be caught."
+  not-your-pet: "<red>This pet belongs to someone else. Only its owner can catch it."
+  leashed: "<yellow>Take the lead off the {mob} first."
+  riding: "<yellow>The {mob} has something riding it, or is riding something. Get them apart first."
+  trading: "<yellow>Someone is trading with this villager. Wait until they're done."
+  protected: "<red>This {mob} can't be caught."
+  claim: "<red>This {mob} is in someone else's claim. Ask them for container trust to catch it."
+  no-permission: "<red>You don't have permission to catch mobs."
+  failed: "<red>Something went wrong catching the {mob}. Nothing was used up. Please tell an admin."
+
+release:
+  success: "<green>You let the {mob} out."
+  no-room: "<yellow>There's no room for the {mob} there. Try an open spot."
+  claim: "<red>You can't let mobs out in someone else's claim."
+  blocked: "<red>The {mob} can't be let out here."
+  failed: "<red>Something went wrong letting the {mob} out. It is still in the bucket. Please tell an admin."
+
+command:
+  no-permission: "<red>You don't have permission to use this command."
+  player-only: "<red>Only players can use this command."
+  usage: "<gold>/mobbuckets <white>recipe <mob> <dark_gray>| <white>give <player> <mob> [amount] [strengthened] <dark_gray>| <white>reload"
+  unknown-mob: "<red>There's no mob bucket for \"{mob}\". Press TAB after the command to see the list."
+  unknown-player: "<red>No player called {player} is online."
+  recipe: "<gold>{mob} Bucket:</gold> <white>{ingredients}"
+  recipe-strengthen: "<gray>Put it in a brewing stand with {item} on top to raise the catch chance from {chance}% to {strengthened-chance}%."
+  given: "<green>Gave {player} {amount} {mob} Bucket(s)."
+  received: "<green>You received {amount} {mob} Bucket(s)."
+  reloaded: "<green>Settings, mobs and messages reloaded. {count} mobs can be caught."
+
+item:
+  empty-name: "<white>{mob} Bucket"
+  empty-strengthened-name: "<aqua>Strengthened {mob} Bucket"
+  empty-lore:
+    - "<gray>Right-click a {mob} to catch it."
+    - "<gray>Works {chance}% of the time. If it misses,"
+    - "<gray>the bucket breaks."
+  empty-lore-strengthen-hint:
+    - ""
+    - "<dark_gray>Brew it with {item} to raise the"
+    - "<dark_gray>chance to {strengthened-chance}%."
+  filled-name: "<gold>Bucket of {mob}"
+  filled-lore:
+    - "<gray>Right-click a block to let it out."
+  filled-lore-name: "<gray>Name: <white>{name}"
+  filled-lore-baby: "<gray>Baby"
+  filled-lore-owner: "<gray>Owner: <white>{owner}"
+  filled-lore-job: "<gray>Job: <white>{job}</white>, level {level}"
+  # How a recipe item that can be any of a group (like any colour of carpet)
+  # is named, for example "White Carpet (any kind)".
+  any-kind: "{item} (any kind)"

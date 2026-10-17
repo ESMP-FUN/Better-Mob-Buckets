@@ -1,0 +1,95 @@
+# =============================================================================
+#  Mob Buckets - main settings
+# =============================================================================
+#  Players craft a bucket for one kind of mob, right-click that mob to scoop
+#  it up, and right-click a block to let it out somewhere else. After the mob
+#  is let out, the player is left with a normal empty bucket.
+#
+#  Which mobs can be caught, and what each bucket is crafted from, is in
+#  mobs.yml. After changing either file, run /mobbuckets reload.
+#
+#  Use spaces, never the TAB key, for the indents in this file.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+#  Catching
+# -----------------------------------------------------------------------------
+catching:
+  # The chance, in percent, that a fresh mob bucket catches the mob.
+  # When it misses, the bucket breaks and the mob stays where it is.
+  # 50 means one try in two works.
+  chance: 50
+
+  # The chance, in percent, for a mob bucket that was strengthened in a
+  # brewing stand (see "Strengthening" below). 75 means three tries in four.
+  strengthened-chance: 75
+
+  # true: players can't catch someone else's tamed pet (dogs, cats, horses,
+  # parrots and so on). Only the owner can. false: anyone can.
+  only-owner-catches-pets: true
+
+  # true: mobs that another plugin made (for example custom bosses from
+  # MythicMobs, or shop keepers) can't be caught. Leave this on unless you
+  # know those mobs are safe to move.
+  protect-other-plugins-mobs: true
+
+# -----------------------------------------------------------------------------
+#  Letting mobs out
+# -----------------------------------------------------------------------------
+releasing:
+  # true: a mob that was let out of a bucket never despawns, even a zombie or
+  # a skeleton, because a player moved it on purpose. false: it behaves like
+  # any other mob of its kind.
+  mobs-never-despawn: true
+
+# -----------------------------------------------------------------------------
+#  Strengthening in a brewing stand
+#  Put a fresh mob bucket where the potion bottles go, the item below on top,
+#  and fuel the stand with blaze powder as usual. When it is done, the bucket
+#  uses the "strengthened-chance" above. A bucket can only be strengthened
+#  once.
+# -----------------------------------------------------------------------------
+strengthening:
+  # true: mob buckets can be strengthened. false: they can't.
+  enabled: true
+
+  # The item that goes on top of the brewing stand.
+  item: redstone
+
+# -----------------------------------------------------------------------------
+#  Land claims
+#  Works with GriefPrevention when it is installed.
+# -----------------------------------------------------------------------------
+claims:
+  # true: inside someone else's claim, players need container trust there
+  # (/containertrust) to catch animals, pets or villagers, and build trust
+  # (/trust) to let a mob out. Monsters can be caught anywhere.
+  # false: claims are ignored.
+  respect-claims: true
+
+# -----------------------------------------------------------------------------
+#  Crafting
+#  Every mob bucket is crafted from one empty bucket, the extra items below,
+#  and some of the mob's own item from mobs.yml. Any order in the crafting
+#  grid works. One crafting grid fits 9 items, so the bucket, the extra items
+#  and the mob items together can't be more than 9.
+# -----------------------------------------------------------------------------
+crafting:
+  # true: players see every mob bucket recipe in their recipe book from the
+  # start. false: they have to work the recipes out themselves.
+  show-in-recipe-book: true
+
+  # Mobs listed under "normal-mobs" in mobs.yml.
+  normal-mobs:
+    # How many of the mob's own item go into the recipe.
+    mob-item-amount: 3
+    # The other items that go in, and how many of each.
+    extra-items:
+      slime_ball: 3
+
+  # Mobs listed under "dangerous-mobs" in mobs.yml.
+  dangerous-mobs:
+    mob-item-amount: 3
+    extra-items:
+      slime_block: 3
+      iron_chain: 2
