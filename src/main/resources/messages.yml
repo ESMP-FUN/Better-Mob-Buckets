@@ -34,6 +34,7 @@ catch:
   riding: "<yellow>The {mob} has something riding it, or is riding something. Get them apart first."
   trading: "<yellow>Someone is trading with this villager. Wait until they're done."
   protected: "<red>This {mob} can't be caught."
+  spawner: "<red>This {mob} came out of a spawner, so it can't be caught."
   claim: "<red>This {mob} is in someone else's claim. Ask them for container trust to catch it."
   no-permission: "<red>You don't have permission to catch mobs."
   failed: "<red>Something went wrong catching the {mob}. Nothing was used up. Please tell an admin."

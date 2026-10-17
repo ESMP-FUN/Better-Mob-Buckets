@@ -1,6 +1,8 @@
 package com.esmpfun.mobbuckets.listener
 
 import com.esmpfun.mobbuckets.MobBucketsPlugin
+import com.esmpfun.mobbuckets.api.MobReleaseEvent
+import com.esmpfun.mobbuckets.api.MobReleasedEvent
 import com.esmpfun.mobbuckets.config.ItemNames
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -76,6 +78,7 @@ class ReleaseListener(private val plugin: MobBucketsPlugin) : Listener {
             messages.send(player, "release.no-room", "mob" to mob)
             return
         }
+        if (!MobReleaseEvent(player, entity, spot).callEvent()) return
         if (settings.releasedNeverDespawn) entity.removeWhenFarAway = false
         if (!entity.spawnAt(spot, SpawnReason.SPAWNER_EGG)) {
             messages.send(player, "release.blocked", "mob" to mob)
@@ -86,5 +89,6 @@ class ReleaseListener(private val plugin: MobBucketsPlugin) : Listener {
         player.swingHand(hand)
         player.world.playSound(spot, Sound.ITEM_BUCKET_EMPTY_FISH, 1f, 1f)
         messages.send(player, "release.success", "mob" to mob)
+        MobReleasedEvent(player, entity, data.mobId).callEvent()
     }
 }

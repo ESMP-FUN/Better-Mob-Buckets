@@ -33,6 +33,11 @@ catching:
   # know those mobs are safe to move.
   protect-other-plugins-mobs: true
 
+  # true: mobs that came out of a monster spawner or a trial spawner can be
+  # caught like any other mob. false: they can't, so a spawner farm stays
+  # where it was built and nobody can carry its mobs away.
+  spawner-mobs: true
+
 # -----------------------------------------------------------------------------
 #  Letting mobs out
 # -----------------------------------------------------------------------------

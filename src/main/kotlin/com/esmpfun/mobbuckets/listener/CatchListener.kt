@@ -1,6 +1,8 @@
 package com.esmpfun.mobbuckets.listener
 
 import com.esmpfun.mobbuckets.MobBucketsPlugin
+import com.esmpfun.mobbuckets.api.MobCatchEvent
+import com.esmpfun.mobbuckets.api.MobCatchResultEvent
 import com.esmpfun.mobbuckets.config.ItemNames
 import org.bukkit.Bukkit
 import org.bukkit.Particle
@@ -67,12 +69,17 @@ class CatchListener(private val plugin: MobBucketsPlugin) : Listener {
         }
 
         val settings = plugin.settings
-        val chance = if (data.strengthened) settings.strengthenedChance else settings.chance
-        if (ThreadLocalRandom.current().nextInt(100) >= chance) {
+        val attempt = MobCatchEvent(
+            player, target, player.inventory.getItem(hand).clone(), data.strengthened,
+            if (data.strengthened) settings.strengthenedChance else settings.chance,
+        )
+        if (!attempt.callEvent()) return
+        if (ThreadLocalRandom.current().nextInt(100) >= attempt.chance) {
             plugin.useOne(player, hand, null)
             player.world.playSound(target.location, Sound.ENTITY_ITEM_BREAK, 1f, 1f)
             player.world.spawnParticle(Particle.POOF, target.location.add(0.0, target.height / 2, 0.0), 12, 0.3, 0.3, 0.3, 0.02)
             messages.send(player, "catch.missed", "mob" to targetName)
+            MobCatchResultEvent(player, target.type, entry.id, target.location, false, null).callEvent()
             return
         }
 
@@ -92,6 +99,7 @@ class CatchListener(private val plugin: MobBucketsPlugin) : Listener {
         player.world.playSound(effectAt, Sound.ITEM_BUCKET_FILL_FISH, 1f, 1f)
         player.world.spawnParticle(Particle.ITEM_SLIME, effectAt, 16, 0.3, 0.3, 0.3, 0.05)
         messages.send(player, "catch.success", "mob" to targetName)
+        MobCatchResultEvent(player, target.type, entry.id, effectAt, true, filled.clone()).callEvent()
     }
 
     /** The message key explaining why this mob can't be caught right now, or null if it can. */
@@ -101,6 +109,7 @@ class CatchListener(private val plugin: MobBucketsPlugin) : Listener {
             !player.hasPermission("mobbuckets.use") -> "catch.no-permission"
             settings.protectOtherPluginsMobs &&
                 (target.entitySpawnReason == SpawnReason.CUSTOM || target.hasMetadata("NPC")) -> "catch.protected"
+            !settings.spawnerMobs && target.entitySpawnReason in SPAWNER_REASONS -> "catch.spawner"
             target.passengers.isNotEmpty() || target.isInsideVehicle -> "catch.riding"
             target.isLeashed -> "catch.leashed"
             settings.onlyOwnerCatchesPets && target is Tameable && target.isTamed &&
@@ -124,5 +133,9 @@ class CatchListener(private val plugin: MobBucketsPlugin) : Listener {
             target.world.dropItemNaturally(target.location, stack)
             inventory.setItem(slot, null)
         }
+    }
+
+    private companion object {
+        val SPAWNER_REASONS = setOf(SpawnReason.SPAWNER, SpawnReason.TRIAL_SPAWNER)
     }
 }

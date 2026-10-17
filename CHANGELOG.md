@@ -12,3 +12,7 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 - **Fair play.** Only owners catch their pets, GriefPrevention claims are respected, and mobs from other plugins can't be caught.
 - `/mobbuckets recipe`, `/mobbuckets give` and `/mobbuckets reload`.
 - **Easy crafting.** Ingredients can go anywhere in the crafting grid and in stacks: a bucket, a stack of slime balls and a stack of the mob item is enough. Shift-click crafts as many as you can afford.
+- **Stats.** With Advanced Player Metrics installed, catches, misses and releases show in `/stats` and on its leaderboards.
+- **Placeholders** for PlaceholderAPI: caught, missed, released, catch rate and the catch chances.
+- **Spawner mobs setting.** `catching.spawner-mobs: false` stops players catching mobs that came out of a spawner.
+- **Events for other plugins** before and after catching and letting out a mob, so they can block a catch, change its chance, or count it for quests.

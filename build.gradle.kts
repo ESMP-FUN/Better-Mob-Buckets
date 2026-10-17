@@ -33,10 +33,19 @@ val isJava25: Boolean = variant.jdk == 25
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://repo.extendedclip.com/releases/") {
+        content { includeGroup("me.clip") }
+    }
+    // Advanced Player Metrics' API: ./gradlew :apm-api:publishToMavenLocal in ../AdvancedPlayerMetrics.
+    mavenLocal {
+        content { includeModule("io.github.darkstarworks", "apm-api") }
+    }
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:${variant.paperApi}")
+    compileOnly("io.github.darkstarworks:apm-api:0.2.0")
+    compileOnly("me.clip:placeholderapi:2.12.3")
 
     implementation(kotlin("stdlib"))
 

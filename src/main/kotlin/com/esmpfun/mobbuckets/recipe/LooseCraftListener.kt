@@ -108,29 +108,11 @@ class LooseCraftListener(private val plugin: MobBucketsPlugin) : Listener {
                 base.extras.forEach { (item, amount) -> add(Triple(item.choice, amount, item.isGroup)) }
                 add(Triple(entry.mobItem.choice, base.mobItemAmount, entry.mobItem.isGroup))
             }.sortedBy { it.third }
-            val take = allocate(matrix, needs.map { it.first to it.second }) ?: continue
+            val take = allocate(matrix.toList(), { if (it.isEmpty) 0 else it.amount }, needs.map { (choice, amount, _) -> choice::test to amount })
+                ?: continue
             return Match(entry, take)
         }
         return null
-    }
-
-    private fun allocate(matrix: Array<ItemStack?>, needs: List<Pair<RecipeChoice, Int>>): IntArray? {
-        val take = IntArray(matrix.size)
-        for ((choice, amount) in needs) {
-            var missing = amount
-            for (i in matrix.indices) {
-                if (missing == 0) break
-                val item = matrix[i] ?: continue
-                if (item.isEmpty || !choice.test(item)) continue
-                val used = minOf(missing, item.amount - take[i])
-                take[i] += used
-                missing -= used
-            }
-            if (missing > 0) return null
-        }
-        // Every filled slot has to belong to the recipe, nothing extra mixed in.
-        val stray = matrix.any { item -> item != null && !item.isEmpty && needs.none { it.first.test(item) } }
-        return if (stray) null else take
     }
 
     private companion object {
@@ -138,4 +120,26 @@ class LooseCraftListener(private val plugin: MobBucketsPlugin) : Listener {
         val BUCKET_CHOICE = RecipeChoice.ExactChoice(PLAIN_BUCKET)
         const val MAX_SHIFT_CRAFTS = 64
     }
+}
+
+/**
+ * How many to take from each slot to cover [needs], in order, or null when the grid is short of something
+ * or holds an item none of the needs accept.
+ */
+internal fun <T : Any> allocate(slots: List<T?>, amountOf: (T) -> Int, needs: List<Pair<(T) -> Boolean, Int>>): IntArray? {
+    val take = IntArray(slots.size)
+    for ((accepts, amount) in needs) {
+        var missing = amount
+        for (i in slots.indices) {
+            if (missing == 0) break
+            val item = slots[i] ?: continue
+            if (amountOf(item) <= 0 || !accepts(item)) continue
+            val used = minOf(missing, amountOf(item) - take[i])
+            take[i] += used
+            missing -= used
+        }
+        if (missing > 0) return null
+    }
+    val stray = slots.any { item -> item != null && amountOf(item) > 0 && needs.none { it.first(item) } }
+    return if (stray) null else take
 }

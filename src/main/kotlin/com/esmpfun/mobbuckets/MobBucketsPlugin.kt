@@ -4,6 +4,7 @@ import com.esmpfun.mobbuckets.claims.ClaimCheck
 import com.esmpfun.mobbuckets.command.MobBucketsCommand
 import com.esmpfun.mobbuckets.config.MobCatalog
 import com.esmpfun.mobbuckets.config.Settings
+import com.esmpfun.mobbuckets.integrations.MobBucketsPlaceholders
 import com.esmpfun.mobbuckets.item.BucketItems
 import com.esmpfun.mobbuckets.listener.BrewingListener
 import com.esmpfun.mobbuckets.listener.CatchListener
@@ -12,6 +13,7 @@ import com.esmpfun.mobbuckets.listener.ReleaseListener
 import com.esmpfun.mobbuckets.messages.Messages
 import com.esmpfun.mobbuckets.recipe.LooseCraftListener
 import com.esmpfun.mobbuckets.recipe.RecipeRegistrar
+import com.esmpfun.mobbuckets.stats.CatchStats
 import org.bukkit.configuration.InvalidConfigurationException
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
@@ -33,14 +35,18 @@ class MobBucketsPlugin : JavaPlugin() {
     val messages = Messages(this)
     val items = BucketItems(this)
     val recipes = RecipeRegistrar(this)
+    lateinit var stats: CatchStats
+        private set
 
     override fun onEnable() {
         saveDefaultConfig()
         claims = ClaimCheck.create(this)
         reloadEverything()
 
-        listOf(CatchListener(this), ReleaseListener(this), GuardListener(this), BrewingListener(this), LooseCraftListener(this))
+        stats = CatchStats(this)
+        listOf(CatchListener(this), ReleaseListener(this), GuardListener(this), BrewingListener(this), LooseCraftListener(this), stats)
             .forEach { server.pluginManager.registerEvents(it, this) }
+        if (server.pluginManager.isPluginEnabled("PlaceholderAPI")) MobBucketsPlaceholders(this).register()
         getCommand("mobbuckets")?.let {
             val command = MobBucketsCommand(this)
             it.setExecutor(command)

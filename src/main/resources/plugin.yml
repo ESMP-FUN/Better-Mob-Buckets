@@ -7,9 +7,10 @@ authors: [ darkstarworks ]
 description: Craft a bucket for a mob, scoop it up, and let it out somewhere else.
 website: https://esmp.fun/plugins
 
-# GriefPrevention is optional: when it is installed, players can't catch
-# animals or villagers in someone else's claim, or let mobs out there.
-softdepend: [ GriefPrevention ]
+# All optional. GriefPrevention: players can't catch animals or villagers
+# in someone else's claim, or let mobs out there. APM: catches show in /stats
+# and on its leaderboards. PlaceholderAPI: catch counts for scoreboards.
+softdepend: [ GriefPrevention, APM, PlaceholderAPI ]
 
 commands:
   mobbuckets:
