@@ -54,3 +54,7 @@ Other permissions: `mobbuckets.use` (catch and let out mobs, everyone), `mobbuck
 ```
 
 The jar lands in `build/libs/`.
+
+## License
+
+Source-available: free to use, no redistribution (see [LICENSE](LICENSE)). Made with Kotlin by [darkstarworks](https://github.com/darkstarworks).
