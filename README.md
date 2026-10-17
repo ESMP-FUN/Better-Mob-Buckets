@@ -1,40 +1,59 @@
 # Mob Buckets
 
-Craft a bucket for one kind of mob, scoop the mob up, and let it out somewhere else. Like catching a fish in a water bucket, but for cows, villagers, horses, zombies and almost everything else.
+Craft a bucket for each kind of mob, scoop the mob up, and let it out somewhere else. <br>
+Like catching a fish in a water bucket, but for cows, villagers, horses, zombies and almost everything else.
 
 ## How it works
 
-1. **Craft a bucket for the mob you want.** Every mob bucket is an empty bucket, 3 slime balls and 3 of an item that belongs to that mob. Put them anywhere in the crafting grid, whole stacks are fine, and shift-click to craft as many as you can afford. A Zombie Bucket takes rotten flesh, a Wolf Bucket takes bones, a Villager Bucket takes emeralds. Every recipe is in the recipe book.
-2. **Right-click the mob with it.** It works half the time. When it misses, the bucket breaks and the mob stays where it is.
-3. **Right-click a block to let the mob out.** You're left with a normal empty bucket, ready for the next recipe.
+1. **Crafting Recipe** has the same base: 1x empty bucket and 3x slime balls <br>
++ 3 of an item that matches the mob. <br>
+Any crafting grid position/layout works, whole stacks are fine, and shift-click to craft in bulk. <br>
+Every recipe is in the recipe book.
+2. **Right-click mob** to try and *bucket* a mob at 50% chance by default. <br>
+If collecting fails, your bucket breaks and is removed from your inventory.
+3. **Right-click on a block** to release the collected mob. You're left with a normal empty bucket, ready for the next recipe.
 
-Want better odds? Put a fresh mob bucket in a brewing stand where the bottles go, with redstone on top. The strengthened bucket works three times out of four. A bucket can only be strengthened once.
+For better odds (+25%), put a crafted (empty) mob bucket in a brewing stand and power it up with redstone dust. A bucket can only be powered up once.
 
-Some mobs are **dangerous** (blazes, breezes, wither skeletons, shulkers, evokers and a few more). Their buckets also need slime blocks and chains. Bosses and a few others (the Wither, the Ender Dragon, wardens, guardians, ghasts) can't be caught at all.
+Some **dangerous** mobs (blazes, breezes, wither skeletons, shulkers, evokers, etc.) require reinforced buckets, which is done by adding slime blocks and chains. 
+
+The Wither, Ender Dragon, Warden, Guardian and Ghasts cannot be captured.
 
 Empty mob buckets stack up to 16 of the same kind. A bucket with a mob in it doesn't stack.
 
 ## What the mob keeps
 
-Everything: its name, whether it's a baby, its health, colour and pattern, who tamed it, a horse's speed and jump, a villager's job, level and trades. Items in a donkey, mule or llama chest drop on the ground when it is caught, so a bucket never carries items around.
+Everything: its name, whether it's a baby, its health, colour and pattern, who tamed it, a horse's speed and jump, a villager's job, level and trades. 
+
+## What the mob does not keep
+
+Items in a donkey, mule or llama chest drop on the ground when it is caught, so a bucket never carries items around.
 
 ## Fair play
 
 - Only the owner of a tamed pet can catch it.
 - With GriefPrevention installed, catching an animal or villager inside someone else's claim needs container trust there, and letting a mob out needs build trust. Monsters can be caught anywhere.
-- Mobs from other plugins (custom bosses, shop keepers) can't be caught.
+- Mobs from other plugins (custom bosses, shop keepers) can't be caught (yet?).
 - Optionally, mobs from monster spawners can't be caught either (`spawner-mobs` in `config.yml`), so spawner farms stay where they were built.
-- A mob that is on a lead, carrying a rider or riding something has to be freed first.
+- A mob that is on a lead, carrying a rider or riding something has to be free first.
 
 ## Installing
 
-1. Pick the jar for your server version: `MobBuckets-<version>.jar` for 1.21.x, `-mc26.jar` for 26.0 to 26.2, `-mc263.jar` for 26.3 and newer.
+1. Pick the jar for your server version: <br>
+`MobBuckets-<version>.jar` for 1.21.x, <br>
+`-mc26.jar` for 26.0 to 26.2, <br>
+`-mc263.jar` for 26.3 and newer.
 2. Put it in your `plugins` folder and restart.
-3. Change anything you like in `plugins/MobBuckets/config.yml` (chances, recipes), `mobs.yml` (which mobs, which items) and `messages.yml` (every text players see), then run `/mobbuckets reload`.
+3. Change anything you like, in <br>
+`plugins/MobBuckets/config.yml` (chances, recipes), <br>
+`mobs.yml` (which mobs, which items), and <br>
+`messages.yml` (every text players see), <br>
+then run `/mobbuckets reload`.
 
 Needs Paper (or a fork of it). Doesn't work on Spigot.
 
-**Keep `plugins/MobBuckets/bucket-key.dat`.** It is made on the first start, and every bucket with a mob in it is signed with it, so nobody can make a fake bucket in creative mode and release whatever they like. If the file is deleted, mobs already in buckets can't be let out any more. On a network where players carry items between servers, copy the same file to every server.
+:warning: **Keep `plugins/MobBuckets/bucket-key.dat`.** :warning: <br>
+It is made on the first start, and every bucket with a mob in it is signed with it, so nobody can make a fake bucket in creative mode and release whatever they like. If the file is deleted, mobs already in buckets can't be let out any more. On a network where players carry items between servers, copy the same file to every server.
 
 ## Commands
 
