@@ -5,34 +5,37 @@ Like catching a fish in a water bucket, but for cows, villagers, horses, zombies
 
 ## How it works
 
-1. **Crafting Recipe** has the same base: 1x empty bucket and 3x slime balls <br>
-+ 3 of an item that matches the mob. <br>
-Any crafting grid position/layout works, whole stacks are fine, and shift-click to craft in bulk. <br>
-Every recipe is in the recipe book.
-2. **Right-click mob** to try and *bucket* a mob at 50% chance by default. <br>
+1. **Crafting Recipe** has the same base: 1x empty bucket and 3x slime balls, <br>
+plus 3 of an item that matches the mob.
+
+> Any crafting grid position/layout works, whole stacks are fine, and shift-click to craft in bulk. <br>Every recipe is in the recipe book.
+
+3. **Right-click mob** to try and *bucket* a mob at 50% chance by default. <br>
 If collecting fails, your bucket breaks and is removed from your inventory.
-3. **Right-click on a block** to release the collected mob. You're left with a normal empty bucket, ready for the next recipe.
+4. **Right-click on a block** to release the collected mob. <br>You're left with a normal empty bucket, ready for the next recipe.
 
-For better odds (+25%), put a crafted (empty) mob bucket in a brewing stand and power it up with redstone dust. A bucket can only be powered up once.
+### Better Odds (+25%)
+Put a crafted (empty) mob bucket in a brewing stand and power it up with redstone dust. <br>A bucket can only be powered up once.
 
-Some **dangerous** mobs (blazes, breezes, wither skeletons, shulkers, evokers, etc.) require reinforced buckets, which is done by adding slime blocks and chains. 
+Some **dangerous** mobs (blazes, breezes, wither skeletons, shulkers, evokers, etc.) <br>require reinforced buckets, which is done by adding slime blocks and chains. 
 
-The Wither, Ender Dragon, Warden, Guardian and Ghasts cannot be captured.
+> *The Wither, Ender Dragon, Warden, Guardian and Ghasts __cannot be captured.__*
 
 Empty mob buckets stack up to 16 of the same kind. A bucket with a mob in it doesn't stack.
 
-## What the mob keeps
+### Info the mob keeps
 
-Everything: its name, whether it's a baby, its health, colour and pattern, who tamed it, a horse's speed and jump, a villager's job, level and trades. 
+Its name, if it's baby, its health, colour and pattern, who tamed it, a horse's speed / jump, a villager's job, level and trades. 
 
-## What the mob does not keep
+### Info the mob does not keep
 
-Items in a donkey, mule or llama chest drop on the ground when it is caught, so a bucket never carries items around.
+Items stored in a donkey, mule or llama; <br>
+Chest contents drop on the ground when they get caught, so a bucket never carries items around.
 
 ## Fair play
 
 - Only the owner of a tamed pet can catch it.
-- With GriefPrevention installed, catching an animal or villager inside someone else's claim needs container trust there, and letting a mob out needs build trust. Monsters can be caught anywhere.
+- With GriefPrevention installed, catching a mob/villager inside a claimed area needs container trust. <br>Letting a mob out needs build trust. Monsters can be caught anywhere.
 - Mobs from other plugins (custom bosses, shop keepers) can't be caught (yet?).
 - Optionally, mobs from monster spawners can't be caught either (`spawner-mobs` in `config.yml`), so spawner farms stay where they were built.
 - A mob that is on a lead, carrying a rider or riding something has to be free first.
@@ -57,7 +60,7 @@ It is made on the first start, and every bucket with a mob in it is signed with 
 
 ## Commands
 
-| Command | What it does | Permission | Who has it |
+| Command | Function | Permission | For |
 |---|---|---|---|
 | `/mobbuckets recipe <mob>` | Shows what a mob bucket is crafted from | `mobbuckets.recipe` | everyone |
 | `/mobbuckets give <player> <mob> [amount] [strengthened]` | Gives mob buckets, for example from a shop or crate plugin | `mobbuckets.give` | ops |
