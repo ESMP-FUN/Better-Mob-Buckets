@@ -60,15 +60,17 @@ command:
 
 item:
   empty-name: "<white>{mob} Bucket"
-  empty-strengthened-name: "<aqua>Strengthened {mob} Bucket"
+  empty-strengthened-name: "<white>{mob} Bucket"
   empty-lore:
-    - "<gray>Right-click a {mob} to catch it."
-    - "<gray>Works {chance}% of the time. If it misses,"
-    - "<gray>the bucket breaks."
-  empty-lore-strengthen-hint:
+    - "<gray>Right-click a <b>{mob}</b> to capture."
+    - "<gray>Success rate: <gold><b>{chance}%</b></gold> (missing power)"
     - ""
-    - "<dark_gray>Brew it with {item} to raise the"
-    - "<dark_gray>chance to {strengthened-chance}%."
+    - "<dark_gray>If catching fails, the bucket is lost."
+  empty-strengthened-lore:
+    - "<gray>Right-click a <b>{mob}</b> to capture."
+    - "<gray>Success rate: <green><b>{chance}%</b></green> (powered up)"
+    - ""
+    - "<dark_gray>If catching fails, the bucket is lost."
   filled-name: "<gold>Bucket of {mob}"
   filled-lore:
     - "<gray>Right-click a block to let it out."

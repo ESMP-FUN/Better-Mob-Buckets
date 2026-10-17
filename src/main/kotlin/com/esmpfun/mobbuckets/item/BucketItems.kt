@@ -57,15 +57,11 @@ class BucketItems(private val plugin: MobBucketsPlugin) {
             meta.itemName(
                 messages.itemText(if (strengthened) "item.empty-strengthened-name" else "item.empty-name", "mob" to mob)
             )
-            val lore = messages.itemLines("item.empty-lore", "mob" to mob, "chance" to chance).toMutableList()
-            val strengthenItem = settings.strengthenItem
-            if (!strengthened && strengthenItem != null) {
-                lore += messages.itemLines(
-                    "item.empty-lore-strengthen-hint",
-                    "item" to Component.translatable(strengthenItem.translationKey()),
-                    "strengthened-chance" to settings.strengthenedChance,
-                )
-            }
+            val lore = messages.itemLines(
+                if (strengthened) "item.empty-strengthened-lore" else "item.empty-lore",
+                "mob" to mob,
+                "chance" to chance,
+            )
             meta.lore(lore)
             if (strengthened) meta.setEnchantmentGlintOverride(true)
             meta.persistentDataContainer.set(mobKey, PersistentDataType.STRING, entry.id)
