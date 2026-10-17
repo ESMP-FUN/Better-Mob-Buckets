@@ -6,7 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.block.BlockFace
-import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Mob
 import org.bukkit.event.Event
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -52,12 +52,22 @@ class ReleaseListener(private val plugin: MobBucketsPlugin) : Listener {
             return
         }
 
+        val saved = data.entityData ?: return
+        if (!plugin.items.seal.verify(data.mobId, saved, data.seal)) {
+            plugin.logger.warning("${player.name} tried to use a mob bucket that wasn't filled on this server (it holds \"${data.mobId}\").")
+            messages.send(player, "release.not-valid", "mob" to mob)
+            return
+        }
         val entity = try {
             @Suppress("DEPRECATION")
-            Bukkit.getUnsafe().deserializeEntity(data.entityData ?: return, target.world, false)
+            Bukkit.getUnsafe().deserializeEntity(saved, target.world, false)
         } catch (e: RuntimeException) {
             plugin.logger.warning("Couldn't read the ${data.mobId} in ${player.name}'s bucket: $e")
             messages.send(player, "release.failed", "mob" to mob)
+            return
+        }
+        if (entity !is Mob || entity.type.key.key != data.mobId || plugin.catalog.isBlocked(entity.type)) {
+            messages.send(player, "release.blocked", "mob" to mob)
             return
         }
 
@@ -66,7 +76,7 @@ class ReleaseListener(private val plugin: MobBucketsPlugin) : Listener {
             messages.send(player, "release.no-room", "mob" to mob)
             return
         }
-        if (settings.releasedNeverDespawn) (entity as? LivingEntity)?.removeWhenFarAway = false
+        if (settings.releasedNeverDespawn) entity.removeWhenFarAway = false
         if (!entity.spawnAt(spot, SpawnReason.SPAWNER_EGG)) {
             messages.send(player, "release.blocked", "mob" to mob)
             return

@@ -12,12 +12,13 @@ import org.bukkit.entity.Tameable
 import org.bukkit.entity.Villager
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
+import java.io.File
 
 /**
  * What a mob bucket item holds. Empty buckets store their [MobEntry.id]; filled ones store the
  * caught mob's own type name (a llama bucket can hold a trader llama) and its saved data.
  */
-class BucketData(val mobId: String, val strengthened: Boolean, val entityData: ByteArray?) {
+class BucketData(val mobId: String, val strengthened: Boolean, val entityData: ByteArray?, val seal: ByteArray?) {
     val isFilled: Boolean get() = entityData != null
 }
 
@@ -26,6 +27,9 @@ class BucketItems(private val plugin: MobBucketsPlugin) {
     private val mobKey = NamespacedKey(plugin, "mob")
     private val strengthenedKey = NamespacedKey(plugin, "strengthened")
     private val entityKey = NamespacedKey(plugin, "entity")
+    private val sealKey = NamespacedKey(plugin, "seal")
+
+    val seal = BucketSeal(File(plugin.dataFolder, "bucket-key.dat"))
 
     fun read(item: ItemStack?): BucketData? {
         if (item == null || item.type != Material.BUCKET || !item.hasItemMeta()) return null
@@ -35,6 +39,7 @@ class BucketItems(private val plugin: MobBucketsPlugin) {
             mob,
             pdc.has(strengthenedKey, PersistentDataType.BYTE),
             pdc.get(entityKey, PersistentDataType.BYTE_ARRAY),
+            pdc.get(sealKey, PersistentDataType.BYTE_ARRAY),
         )
     }
 
@@ -92,8 +97,10 @@ class BucketItems(private val plugin: MobBucketsPlugin) {
             meta.lore(lore)
             meta.setMaxStackSize(1)
             meta.setEnchantmentGlintOverride(true)
-            meta.persistentDataContainer.set(mobKey, PersistentDataType.STRING, entity.type.key.key)
+            val mobId = entity.type.key.key
+            meta.persistentDataContainer.set(mobKey, PersistentDataType.STRING, mobId)
             meta.persistentDataContainer.set(entityKey, PersistentDataType.BYTE_ARRAY, data)
+            meta.persistentDataContainer.set(sealKey, PersistentDataType.BYTE_ARRAY, seal.sign(mobId, data))
         }
         return item
     }

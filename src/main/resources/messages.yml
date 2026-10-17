@@ -43,6 +43,7 @@ release:
   no-room: "<yellow>There's no room for the {mob} there. Try an open spot."
   claim: "<red>You can't let mobs out in someone else's claim."
   blocked: "<red>The {mob} can't be let out here."
+  not-valid: "<red>This bucket wasn't filled on this server, so the {mob} in it can't be let out."
   failed: "<red>Something went wrong letting the {mob} out. It is still in the bucket. Please tell an admin."
 
 command:

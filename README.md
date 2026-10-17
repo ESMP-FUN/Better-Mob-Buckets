@@ -33,6 +33,8 @@ Everything: its name, whether it's a baby, its health, colour and pattern, who t
 
 Needs Paper (or a fork of it). Doesn't work on Spigot.
 
+**Keep `plugins/MobBuckets/bucket-key.dat`.** It is made on the first start, and every bucket with a mob in it is signed with it, so nobody can make a fake bucket in creative mode and release whatever they like. If the file is deleted, mobs already in buckets can't be let out any more. On a network where players carry items between servers, copy the same file to every server.
+
 ## Commands
 
 | Command | What it does | Permission | Who has it |
