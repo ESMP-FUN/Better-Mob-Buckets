@@ -11,3 +11,4 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 - **Dangerous mobs** need a dearer recipe with slime blocks and chains. Bosses and a few others can't be caught.
 - **Fair play.** Only owners catch their pets, GriefPrevention claims are respected, and mobs from other plugins can't be caught.
 - `/mobbuckets recipe`, `/mobbuckets give` and `/mobbuckets reload`.
+- **Easy crafting.** Ingredients can go anywhere in the crafting grid and in stacks: a bucket, a stack of slime balls and a stack of the mob item is enough. Shift-click crafts as many as you can afford.

@@ -10,6 +10,7 @@ import com.esmpfun.mobbuckets.listener.CatchListener
 import com.esmpfun.mobbuckets.listener.GuardListener
 import com.esmpfun.mobbuckets.listener.ReleaseListener
 import com.esmpfun.mobbuckets.messages.Messages
+import com.esmpfun.mobbuckets.recipe.LooseCraftListener
 import com.esmpfun.mobbuckets.recipe.RecipeRegistrar
 import org.bukkit.configuration.InvalidConfigurationException
 import org.bukkit.configuration.file.YamlConfiguration
@@ -38,7 +39,7 @@ class MobBucketsPlugin : JavaPlugin() {
         claims = ClaimCheck.create(this)
         reloadEverything()
 
-        listOf(CatchListener(this), ReleaseListener(this), GuardListener(this), BrewingListener(this))
+        listOf(CatchListener(this), ReleaseListener(this), GuardListener(this), BrewingListener(this), LooseCraftListener(this))
             .forEach { server.pluginManager.registerEvents(it, this) }
         getCommand("mobbuckets")?.let {
             val command = MobBucketsCommand(this)
